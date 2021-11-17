@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace FileManager.Services.Interfaces
 {
     public interface IFileService : IService<FileService>
-    {   
+    {
+        IReadOnlyCollection<DirectoryInfo> GetCollectionFiles();
     }
 }

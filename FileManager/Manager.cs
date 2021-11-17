@@ -1,4 +1,5 @@
 ﻿using FileManager.Actions;
+using FileManager.IOServices.Interfaces;
 using FileManager.Services;
 using FileManager.Services.Interfaces;
 
@@ -6,24 +7,33 @@ namespace FileManager
 { 
     public class Manager
     {
-        private readonly IDiskService<DiskService> _diskService;
+        private readonly IDiskService _diskService;
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
+        private readonly IInputServices _inputService;
 
-        public Manager(IDiskService<DiskService> diskService,
+        public Manager(IDiskService diskService,
             IDirectoryService directoryService,
-            IFileService fileService)
+            IFileService fileService,
+            IInputServices inputServices)
         {
             _diskService = diskService;
             _directoryService = directoryService;
             _fileService = fileService;
+            _inputService = inputServices;
         }
 
-
+        public void Run()
+        {
+            _inputService.InputData();
+        }
 
         public void GetDisks()
         {
-            _diskService.GetCollectionObjects();
+            foreach (var disk in _diskService.GetCollectionDisks())
+            {
+                Console.WriteLine(disk.Name);
+            }
         }
     }
 }

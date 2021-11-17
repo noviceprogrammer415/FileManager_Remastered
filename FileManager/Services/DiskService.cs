@@ -2,11 +2,8 @@
 
 namespace FileManager.Actions
 {
-    public class DiskService : IDiskService<DiskService>, ISingleton<DiskService>
+    public class DiskService : IDiskService, ISingleton<DiskService>
     {
-        public IReadOnlyCollection<DiskService> GetCollectionObjects()
-        {
-            throw new NotImplementedException();
-        }
+        public IReadOnlyCollection<DriveInfo> GetCollectionDisks() => DriveInfo.GetDrives();
     }
 }

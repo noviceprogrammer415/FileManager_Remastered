@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace FileManager.Services.Interfaces
 {
-    public interface IDiskService<T> where T : class
-    {
-        IReadOnlyCollection<T> GetCollectionObjects();
+    public interface IDiskService
+    { 
+        IReadOnlyCollection<DriveInfo> GetCollectionDisks();
     }
 }

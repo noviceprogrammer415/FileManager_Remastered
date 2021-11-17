@@ -19,6 +19,11 @@ namespace FileManager.Services
             throw new NotImplementedException();
         }
 
+        public IReadOnlyCollection<DirectoryInfo> GetCollectionFiles()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Move()
         {
             throw new NotImplementedException();
