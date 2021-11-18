@@ -9,6 +9,6 @@ namespace FileManager.IOServices.Interfaces
 {
     public interface IInputServices : ISingleton<InputService>
     {
-        void InputData();
+        StringBuilder InputData();
     }
 }

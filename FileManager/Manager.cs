@@ -27,13 +27,5 @@ namespace FileManager
         {
             _inputService.InputData();
         }
-
-        public void GetDisks()
-        {
-            foreach (var disk in _diskService.GetCollectionDisks())
-            {
-                Console.WriteLine(disk.Name);
-            }
-        }
     }
 }

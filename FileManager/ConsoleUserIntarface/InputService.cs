@@ -9,9 +9,12 @@ namespace FileManager.IOServices
 {
     public class InputService : IInputServices
     {
-        public void InputData()
+        public StringBuilder InputData()
         {
-            Console.ReadLine();
+            Console.Write(">");
+            var entry = new StringBuilder();
+            entry.Append(Console.ReadLine());
+            return entry;
         }
     }
 }

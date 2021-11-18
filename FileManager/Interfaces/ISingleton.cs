@@ -8,11 +8,11 @@ namespace FileManager.Services.Interfaces
 {
     public interface ISingleton<T> where T : new()
     {
+        static T? _instance;
         static T Instance()
         {
-            T? instance = default;
-            if (instance is null) instance = new();
-            return instance;
+            if (_instance is null) _instance = new();
+            return _instance;
         }
     }
 }
