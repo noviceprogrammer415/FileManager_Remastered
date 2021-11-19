@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FileManager.Services.Interfaces
+namespace FileManager.Core.Services.Interfaces
 {
-    public interface IFileService : IService<FileService>
+    public interface IPathService
     {
+        
     }
 }

@@ -8,6 +8,6 @@ namespace FileManager.Services.Interfaces
 {
     public interface IDirectoryService : IService<DirectoryService>
     {
-        IReadOnlyCollection<DirectoryInfo> GetCollectionDirectories();
+        IReadOnlyCollection<string> GetDirectories(StringBuilder path);
     }
 }

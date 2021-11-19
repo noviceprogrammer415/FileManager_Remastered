@@ -1,4 +1,5 @@
 ﻿using FileManager.Services.Interfaces;
+using System.Text;
 
 namespace FileManager.Services
 {
@@ -9,17 +10,12 @@ namespace FileManager.Services
             throw new NotImplementedException();
         }
 
-        public void Create()
+        public bool Create(StringBuilder name)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IReadOnlyCollection<DirectoryInfo> GetCollectionFiles()
+        public bool Delete(StringBuilder name)
         {
             throw new NotImplementedException();
         }

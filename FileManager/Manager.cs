@@ -2,6 +2,7 @@
 using FileManager.IOServices.Interfaces;
 using FileManager.Services;
 using FileManager.Services.Interfaces;
+using System.Text;
 
 namespace FileManager
 { 
@@ -25,7 +26,8 @@ namespace FileManager
 
         public void Run()
         {
-            _inputService.InputData();
+            var path = new StringBuilder("c:\\Test\\TestDir");
+            _directoryService.Delete(path);
         }
     }
 }

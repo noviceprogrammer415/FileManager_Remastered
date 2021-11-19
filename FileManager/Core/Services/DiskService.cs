@@ -4,6 +4,6 @@ namespace FileManager.Actions
 {
     public class DiskService : IDiskService, ISingleton<DiskService>
     {
-        public IReadOnlyCollection<DriveInfo> GetCollectionDisks() => DriveInfo.GetDrives();
+        public IReadOnlyCollection<DriveInfo> GetDisks() => DriveInfo.GetDrives();
     }
 }

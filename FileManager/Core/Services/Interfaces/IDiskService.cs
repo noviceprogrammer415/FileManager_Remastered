@@ -8,6 +8,6 @@ namespace FileManager.Services.Interfaces
 {
     public interface IDiskService
     { 
-        IReadOnlyCollection<DriveInfo> GetCollectionDisks();
+        IReadOnlyCollection<DriveInfo> GetDisks();
     }
 }

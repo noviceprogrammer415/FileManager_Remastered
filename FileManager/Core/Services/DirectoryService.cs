@@ -1,4 +1,8 @@
 ﻿using FileManager.Services.Interfaces;
+using System.Security;
+using System.Text;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace FileManager.Services
 {
@@ -9,19 +13,90 @@ namespace FileManager.Services
             throw new NotImplementedException();
         }
 
-        public void Create()
+        public bool Create(StringBuilder path)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (!Directory.Exists(path.ToString()))
+                {
+                    Directory.CreateDirectory(path.ToString());
+                    return true;
+                }
+
+                return false;
+            }
+            catch (IOException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (NotSupportedException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
         }
 
-        public void Delete()
+        public bool Delete(StringBuilder path)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (Directory.Exists(path.ToString()))
+                {
+                    Directory.Delete(path.ToString(), true);
+                    return true;
+                }
+
+                return false;
+            }
+            catch (IOException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
         }
 
-        public IReadOnlyCollection<DirectoryInfo> GetCollectionDirectories()
+        public IReadOnlyCollection<string> GetDirectories(StringBuilder path)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return Directory.GetFileSystemEntries(path.ToString());
+            }
+            catch (IOException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
         }
 
         public void Move()
