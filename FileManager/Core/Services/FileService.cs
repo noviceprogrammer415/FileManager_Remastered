@@ -5,7 +5,7 @@ namespace FileManager.Services
 {
     public class FileService : IFileService, ISingleton<FileService>
     {
-        public void Copy()
+        public void Copy(StringBuilder sourceName, StringBuilder destName)
         {
             throw new NotImplementedException();
         }
@@ -20,7 +20,7 @@ namespace FileManager.Services
             throw new NotImplementedException();
         }
 
-        public void Move()
+        public bool Move(StringBuilder sourceName, StringBuilder destName)
         {
             throw new NotImplementedException();
         }

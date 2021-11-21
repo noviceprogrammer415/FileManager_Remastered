@@ -8,11 +8,59 @@ namespace FileManager.Services
 {
     public class DirectoryService : IDirectoryService, ISingleton<DirectoryService>
     {
-        public void Copy()
+        /// <summary> Копирует содержимое директории </summary>
+        /// <param name="sourcePath">путь источника</param>
+        /// <param name="destPath">путь цели</param>
+        public void Copy(StringBuilder sourcePath, StringBuilder destPath)
         {
-            throw new NotImplementedException();
+            var dirSource = new DirectoryInfo(sourcePath.ToString());
+            var dirDest = new DirectoryInfo(destPath.ToString());
+
+            CopyAll(dirSource, dirDest);
         }
 
+        private void CopyAll(DirectoryInfo source, DirectoryInfo target)
+        {
+            try
+            {
+                Directory.CreateDirectory(target.FullName);
+
+                foreach (var fileInfo in source.GetFiles())
+                {
+                    fileInfo.CopyTo(Path.Combine(target.FullName, fileInfo.Name), overwrite: true);
+                }
+
+                foreach (var dirSourceSubDir in source.GetDirectories())
+                {
+                    DirectoryInfo nextTargetSubDir = target.CreateSubdirectory(dirSourceSubDir.Name);
+                    CopyAll(dirSourceSubDir, nextTargetSubDir);
+                }
+            }
+            catch (IOException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (NotSupportedException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary> Создает директорию </summary>
+        /// <param name="path">путь, по которому необходимо создать директорию</param>
+        /// <returns>результат операции</returns>
         public bool Create(StringBuilder path)
         {
             try
@@ -47,6 +95,9 @@ namespace FileManager.Services
             }
         }
 
+        /// <summary> Удаляет директорию и все ее поддиректории и файлы </summary>
+        /// <param name="path">путь, по которому необходимо удалить директорию</param>
+        /// <returns>результат операции</returns>
         public bool Delete(StringBuilder path)
         {
             try
@@ -76,6 +127,9 @@ namespace FileManager.Services
             }
         }
 
+        /// <summary> Получает все файлы и поддиректории, текущей директории </summary>
+        /// <param name="path">путь текущей директории</param>
+        /// <returns>коллекция с именами файлов и поддиректорий, текущей директории</returns>
         public IReadOnlyCollection<string> GetDirectories(StringBuilder path)
         {
             try
@@ -99,9 +153,37 @@ namespace FileManager.Services
             }
         }
 
-        public void Move()
+        /// <summary> Перемещает файл или каталог со всем его содержимым в новое местоположение </summary>
+        /// <param name="sourceName">Путь к файлу или каталогу, который необходимо переместить</param>
+        /// <param name="destName">Путь к новому местоположению</param>
+        /// <returns>результат операции</returns>
+        public bool Move(StringBuilder sourceName, StringBuilder destName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(!Directory.Exists(destName.ToString()))
+                {
+                    Directory.Move(sourceName.ToString(), destName.ToString());
+                    return true;
+                }
+
+                return false;
+            }
+            catch (IOException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
         }
 
         public void Rename()
