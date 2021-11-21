@@ -8,6 +8,6 @@ namespace FileManager.Services.Interfaces
         bool Create(StringBuilder path);
         bool Delete(StringBuilder path);
         bool Move(StringBuilder sourcePath, StringBuilder destPath);
-        void Rename();
+        void Rename(StringBuilder oldName, StringBuilder newName);
     }
 }

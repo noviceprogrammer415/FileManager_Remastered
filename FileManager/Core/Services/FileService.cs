@@ -25,7 +25,7 @@ namespace FileManager.Services
             throw new NotImplementedException();
         }
 
-        public void Rename()
+        public void Rename(StringBuilder oldName, StringBuilder newName)
         {
             throw new NotImplementedException();
         }

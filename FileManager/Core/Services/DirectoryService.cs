@@ -186,9 +186,33 @@ namespace FileManager.Services
             }
         }
 
-        public void Rename()
+        /// <summary> Переименовывает каталог </summary>
+        /// <param name="oldName">имя, которое нужно изменить</param>
+        /// <param name="newName">имя, на которое нужно изменить</param>
+        public void Rename(StringBuilder oldName, StringBuilder newName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(!Directory.Exists(newName.ToString()))
+                {
+                    Directory.Move(oldName.ToString(), newName.ToString());
+                }
+            }
+            catch (IOException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
         }
     }
 }
