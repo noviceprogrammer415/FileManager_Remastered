@@ -26,9 +26,9 @@ namespace FileManager
 
         public void Run()
         {
-            var path = new StringBuilder("c:\\Test\\Test1");
-            var path_2 = new StringBuilder("c:\\Test\\Changes");
-            _directoryService.Rename(path, path_2);
+            var path = new StringBuilder("c:\\Test\\Changes\\8888.txt");
+            var path_2 = new StringBuilder("c:\\Test\\Changes\\Test2\\8888.txt");
+            _fileService.Move(path, path_2);
         }
     }
 }
