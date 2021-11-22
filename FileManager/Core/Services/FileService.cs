@@ -1,14 +1,35 @@
 ﻿using FileManager.Services.Interfaces;
-using System.Diagnostics;
 using System.Text;
 
 namespace FileManager.Services
 {
     public class FileService : IFileService, ISingleton<FileService>
     {
+        /// <summary> Копирует существующий файл в новый файл </summary>
+        /// <param name="sourceName">копируемый файл</param>
+        /// <param name="destName">имя целевого файла</param>
         public void Copy(StringBuilder sourceName, StringBuilder destName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                File.Copy(sourceName.ToString(), destName.ToString());
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }   
+            catch (NotSupportedException ex)
+            {   
+                Console.WriteLine(ex.Message);
+            }
         }
 
         /// <summary> Создает файлы </summary>
@@ -28,18 +49,18 @@ namespace FileManager.Services
             }
             catch (IOException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
             }
             catch (ArgumentException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
@@ -60,23 +81,40 @@ namespace FileManager.Services
             }
             catch (IOException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
             }
             catch (ArgumentException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
             }
             catch (NotSupportedException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary> Получает размер файла в байтах </summary>
+        /// <param name="name">имя файла</param>
+        /// <returns>размер файла в байтах</returns>
+        public long GetSize(StringBuilder name)
+        {
+            try
+            {
+                var fileInfo = new FileInfo(name.ToString());
+                return fileInfo.Length;
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
             }
         }
 
@@ -98,29 +136,51 @@ namespace FileManager.Services
             }
             catch (IOException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
             }
             catch (ArgumentException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
             }
             catch (NotSupportedException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                return false;
             }
         }
 
+        /// <summary> Переименовывает файл </summary>
+        /// <param name="oldName">имя файла, которое нужно изменить</param>
+        /// <param name="newName">имя, на которое нужно изменить</param>
         public void Rename(StringBuilder oldName, StringBuilder newName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                File.Move(oldName.ToString(), newName.ToString());
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (NotSupportedException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

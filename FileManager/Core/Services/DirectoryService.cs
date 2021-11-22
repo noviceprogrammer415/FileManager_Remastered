@@ -153,6 +153,23 @@ namespace FileManager.Services
             }
         }
 
+        /// <summary> Получает размер директории в байтах </summary>
+        /// <param name="name">имя директории</param>
+        /// <returns>размер в байтах</returns>
+        public long GetSize(StringBuilder name)
+        {
+            try
+            {
+                var directoryInfo = new DirectoryInfo(name.ToString());
+                return directoryInfo.GetFiles("*.*", SearchOption.AllDirectories).Sum(f => f.Length);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 0;
+            }
+        }
+
         /// <summary> Перемещает файл или каталог со всем его содержимым в новое местоположение </summary>
         /// <param name="sourceName">Путь к файлу или каталогу, который необходимо переместить</param>
         /// <param name="destName">Путь к новому местоположению</param>

@@ -7,6 +7,7 @@ namespace FileManager.Services.Interfaces
         void Copy(StringBuilder sourcePath, StringBuilder destPath);
         bool Create(StringBuilder path);
         bool Delete(StringBuilder path);
+        long GetSize(StringBuilder name);
         bool Move(StringBuilder sourcePath, StringBuilder destPath);
         void Rename(StringBuilder oldName, StringBuilder newName);
     }
