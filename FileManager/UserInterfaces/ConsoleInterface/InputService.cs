@@ -7,14 +7,20 @@ using System.Threading.Tasks;
 
 namespace FileManager.IOServices
 {
-    public class InputService : IInputServices
+    public class InputService : IInputService
     {
-        public StringBuilder InputData()
+        public void InputData(out StringBuilder command, out StringBuilder path)
         {
-            Console.Write(">");
-            var entry = new StringBuilder();
-            entry.Append(Console.ReadLine());
-            return entry;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($">>[] ");
+            Console.ResetColor();
+
+            var str = Console.ReadLine();
+            var Command = str?.ToString().Split(" ")[0];
+            var Path = str?.ToString().Remove(0, Command!.Length);
+
+            command = new(Command, Command!.Length);
+            path = new(Path, Path!.Length);
         }
     }
 }

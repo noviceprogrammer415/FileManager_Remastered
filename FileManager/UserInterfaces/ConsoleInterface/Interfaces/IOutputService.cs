@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace FileManager.IOServices.Interfaces
 {
-    public interface IInputServices : ISingleton<InputService>
+    public interface IOutputService : ISingleton<OutputService>
     {
-        StringBuilder InputData();
+        
     }
 }

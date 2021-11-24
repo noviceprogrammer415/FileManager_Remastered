@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FileManager.IOServices
 {
-    public class OutputService : IOutputServices
+    public class OutputService : IOutputService
     {
         
     }

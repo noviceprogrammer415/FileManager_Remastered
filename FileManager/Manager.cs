@@ -1,6 +1,5 @@
-﻿using FileManager.Actions;
+﻿using FileManager.Core.Services;
 using FileManager.IOServices.Interfaces;
-using FileManager.Services;
 using FileManager.Services.Interfaces;
 using System.Text;
 
@@ -11,12 +10,12 @@ namespace FileManager
         private readonly IDiskService _diskService;
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
-        private readonly IInputServices _inputService;
+        private readonly IInputService _inputService;
 
         public Manager(IDiskService diskService,
             IDirectoryService directoryService,
             IFileService fileService,
-            IInputServices inputServices)
+            IInputService inputServices)
         {
             _diskService = diskService;
             _directoryService = directoryService;
@@ -26,9 +25,31 @@ namespace FileManager
 
         public void Run()
         {
-            var path = new StringBuilder("c:\\Test\\Changes");
-            var path_2 = new StringBuilder("c:\\Test\\Changes\\Test2\\88881.txt");
-            var result = _directoryService.GetSize(path);
+            StringBuilder command, path;
+
+            do
+            {
+                _inputService.InputData(out command, out path);
+                if(!string.IsNullOrEmpty(command.ToString())) ManageDirectory(command, path);
+            } while (!command.Equals(Commands.exit.ToString()));
+        }
+
+        private void ManageDirectory(StringBuilder command, StringBuilder path)
+        {
+            switch (command.ToString())
+            {
+                case nameof(Commands.dir):
+                    _directoryService.GetDirectories(path);
+                    break;
+                case nameof(Commands.disk):
+                    _diskService.GetDisks();
+                    break;
+                case nameof(Commands.exit):
+                    return;
+                default:
+                    Console.WriteLine("Сommand not found!");
+                    break;
+            }
         }
     }
 }
