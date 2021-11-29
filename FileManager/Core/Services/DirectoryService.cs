@@ -8,6 +8,9 @@ namespace FileManager.Services
 {
     public class DirectoryService : IDirectoryService, ISingleton<DirectoryService>
     {
+        private string _error = "Internal Error! Code:";
+        [Flags] private enum Errors { D1, D2, D3, D4 };
+
         /// <summary> Копирует содержимое директории </summary>
         /// <param name="sourcePath">путь источника</param>
         /// <param name="destPath">путь цели</param>
@@ -39,22 +42,22 @@ namespace FileManager.Services
             catch (IOException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D1}");
             }
             catch (ArgumentException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D2}");
             }
             catch (UnauthorizedAccessException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D3}");
             }
             catch (NotSupportedException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D4}");
             }
         }
 
@@ -76,22 +79,26 @@ namespace FileManager.Services
             catch (IOException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D1}");
+                return false;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D3}");
+                return false;
             }
             catch (ArgumentException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D2}");
+                return false;
             }
             catch (NotSupportedException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D4}");
+                return false;
             }
         }
 
@@ -112,18 +119,21 @@ namespace FileManager.Services
             }
             catch (IOException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine($"{_error} {Errors.D1}");
+                return false;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine($"{_error} {Errors.D3}");
+                return false;
             }
             catch (ArgumentException ex)
             {
-                Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(ex.Message);
+                Console.WriteLine($"{_error} {Errors.D2}");
+                return false;
             }
         }
 
@@ -139,17 +149,20 @@ namespace FileManager.Services
             catch (IOException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D1}");
+                return Array.Empty<string>();
             }
             catch (UnauthorizedAccessException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D3}");
+                return Array.Empty<string>();
             }
             catch (ArgumentException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D2}");
+                return Array.Empty<string>();
             }
         }
 
@@ -165,7 +178,8 @@ namespace FileManager.Services
             }
             catch (IOException ex)
             {
-                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
+                Console.WriteLine($"{_error} {Errors.D1}");
                 return 0;
             }
         }
@@ -189,17 +203,20 @@ namespace FileManager.Services
             catch (IOException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D1}");
+                return false;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D3}");
+                return false;
             }
             catch (ArgumentException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D2}");
+                return false;
             }
         }
 
@@ -218,17 +235,17 @@ namespace FileManager.Services
             catch (IOException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D1}");
             }
             catch (UnauthorizedAccessException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D3}");
             }
             catch (ArgumentException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine($"{_error} {Errors.D2}");
             }
         }
     }
