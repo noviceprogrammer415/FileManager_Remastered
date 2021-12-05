@@ -140,7 +140,7 @@ namespace FileManager.Services
         /// <summary> Получает все файлы и поддиректории, текущей директории </summary>
         /// <param name="path">путь текущей директории</param>
         /// <returns>коллекция с именами файлов и поддиректорий, текущей директории</returns>
-        public IReadOnlyCollection<string> GetDirectories(StringBuilder path)
+        public IEnumerable<string> GetDirectories(StringBuilder path)
         {
             try
             {

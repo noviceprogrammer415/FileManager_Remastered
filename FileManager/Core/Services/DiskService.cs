@@ -1,27 +1,31 @@
 ﻿using FileManager.Services.Interfaces;
 using System.Diagnostics;
+using System.Text;
 
 namespace FileManager.Actions
 {
     public class DiskService : IDiskService, ISingleton<DiskService>
     {
-        /// <summary> Получает список дисков </summary>
-        /// <returns>возвращает коллекцию дисков</returns>
-        public IReadOnlyCollection<DriveInfo> GetDisks() 
+        private StringBuilder _error = new("Internal Error! Code: ");
+        [Flags] private enum Errors { D1v, D2v };
+
+        public IEnumerable<DriveInfo> GetDisks()
         {
             try
             {
-               return DriveInfo.GetDrives();
+                return DriveInfo.GetDrives();
             }
             catch (IOException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(_error.Append(Errors.D1v));
+                return Array.Empty<DriveInfo>();
             }
             catch (UnauthorizedAccessException ex)
             {
                 Debug.WriteLine(ex.Message);
-                throw;
+                Console.WriteLine(_error.Append(Errors.D2v));
+                return Array.Empty<DriveInfo>();
             }
         }
     }
