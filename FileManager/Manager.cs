@@ -46,6 +46,9 @@ namespace FileManager
         {
             switch (command.ToString())
             {
+                case nameof(Commands.back):
+                    
+                    break;
                 case nameof(Commands.dir):
                     var directories = _directoryService.GetDirectories(_currentDirectory!);
                     _outputService.PrintCollectionObjects(directories);

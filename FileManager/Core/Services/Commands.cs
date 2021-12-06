@@ -3,6 +3,8 @@
     [Flags]
     public enum Commands
     {
+        back,
+        btr,
         dir,
         disk,
         diskpart,
