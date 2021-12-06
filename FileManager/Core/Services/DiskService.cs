@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FileManager.Actions
 {
-    public class DiskService : IDiskService, ISingleton<DiskService>
+    public class DiskService : IDiskService, INascency<DiskService>
     {
         private readonly StringBuilder _error = new("Internal Error! Code: ");
         [Flags] private enum Errors { D1v, D2v };

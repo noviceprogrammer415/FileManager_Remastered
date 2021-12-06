@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace FileManager.Services
 {
-    public class DirectoryService : IDirectoryService, ISingleton<DirectoryService>
+    public class DirectoryService : IDirectoryService, INascency<DirectoryService>
     {
         private readonly string _error = "Internal Error! Code:";
         [Flags] private enum Errors { D1, D2, D3, D4 };

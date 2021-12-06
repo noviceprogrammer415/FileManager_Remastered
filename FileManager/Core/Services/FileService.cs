@@ -3,7 +3,7 @@ using System.Text;
 
 namespace FileManager.Services
 {
-    public class FileService : IFileService, ISingleton<FileService>
+    public class FileService : IFileService, INascency<FileService>
     {
         /// <summary> Копирует существующий файл в новый файл </summary>
         /// <param name="sourceName">копируемый файл</param>
