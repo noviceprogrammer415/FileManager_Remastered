@@ -1,4 +1,5 @@
-﻿using FileManager.Core.Services;
+﻿using FileManager.Core.Repository;
+using FileManager.Core.Services;
 using FileManager.IOServices.Interfaces;
 using FileManager.Services.Interfaces;
 using System.Text;
@@ -13,18 +14,21 @@ namespace FileManager
         private readonly IFileService _fileService;
         private readonly IInputService _inputService;
         private readonly IOutputService _outputService;
+        private readonly IRepository _repository;
 
         public Manager(IDiskService diskService,
             IDirectoryService directoryService,
             IFileService fileService,
             IInputService inputServices,
-            IOutputService outputService)
+            IOutputService outputService,
+            IRepository repository)
         {
             _diskService = diskService;
             _directoryService = directoryService;
             _fileService = fileService;
             _inputService = inputServices;
             _outputService = outputService;
+            _repository = repository;
         }
 
         public void Run()

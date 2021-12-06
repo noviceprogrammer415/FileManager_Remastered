@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FileManager.IOServices.Interfaces
 {
-    public interface IInputService : ISingleton<InputService>
+    public interface IInputService : INascency<InputService>
     {
         void InputData(ref string currentDirrectory, out string command, out string path);
     }

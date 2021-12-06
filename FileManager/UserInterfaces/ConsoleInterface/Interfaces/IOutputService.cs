@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FileManager.IOServices.Interfaces
 {
-    public interface IOutputService : ISingleton<OutputService>
+    public interface IOutputService : INascency<OutputService>
     {
         void PrintCollectionObjects<T>(IEnumerable<T> collection);
     }
