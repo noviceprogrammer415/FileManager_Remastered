@@ -8,7 +8,7 @@ namespace FileManager.Services
 {
     public class DirectoryService : IDirectoryService, ISingleton<DirectoryService>
     {
-        private string _error = "Internal Error! Code:";
+        private readonly string _error = "Internal Error! Code:";
         [Flags] private enum Errors { D1, D2, D3, D4 };
 
         /// <summary> Копирует содержимое директории </summary>
@@ -140,11 +140,11 @@ namespace FileManager.Services
         /// <summary> Получает все файлы и поддиректории, текущей директории </summary>
         /// <param name="path">путь текущей директории</param>
         /// <returns>коллекция с именами файлов и поддиректорий, текущей директории</returns>
-        public IEnumerable<string> GetDirectories(StringBuilder path)
+        public IEnumerable<string> GetDirectories(string path)
         {
             try
             {
-                return Directory.GetFileSystemEntries(path.ToString());
+                return Directory.EnumerateFileSystemEntries(path);
             }
             catch (IOException ex)
             {

@@ -7,48 +7,59 @@ namespace FileManager
 { 
     public class Manager
     {
+        private string? _currentDirectory;
         private readonly IDiskService _diskService;
         private readonly IDirectoryService _directoryService;
         private readonly IFileService _fileService;
         private readonly IInputService _inputService;
+        private readonly IOutputService _outputService;
 
         public Manager(IDiskService diskService,
             IDirectoryService directoryService,
             IFileService fileService,
-            IInputService inputServices)
+            IInputService inputServices,
+            IOutputService outputService)
         {
             _diskService = diskService;
             _directoryService = directoryService;
             _fileService = fileService;
             _inputService = inputServices;
+            _outputService = outputService;
         }
 
         public void Run()
         {
-            StringBuilder command, path;
+            string command;
 
             do
             {
-                _inputService.InputData(out command, out path);
+                _inputService.InputData(ref _currentDirectory!, out command, out string path);
                 if(!string.IsNullOrEmpty(command.ToString())) ManageDirectory(command, path);
             } while (!command.Equals(Commands.exit.ToString()));
         }
 
-        private void ManageDirectory(StringBuilder command, StringBuilder path)
+        private void ManageDirectory(string command, string path)
         {
             switch (command.ToString())
             {
                 case nameof(Commands.dir):
-                    _directoryService.GetDirectories(path);
-                    break;
-                case nameof(Commands.disk):
-                    _diskService.GetDisks();
-                    break;
-                case nameof(Commands.exit):
+                    var directories = _directoryService.GetDirectories(_currentDirectory!);
+                    _outputService.PrintCollectionObjects(directories);
                     return;
+                case nameof(Commands.disk):
+                    var disks = _diskService.GetDisks();
+                    _outputService.PrintCollectionObjects(disks);
+                    return;
+                case nameof(Commands.diskpart): _currentDirectory = path;
+                    break;
+                case nameof(Commands.cd): _currentDirectory = Path.Combine(_currentDirectory!, path);
+                    break;
+                case nameof(Commands.clr): Console.Clear();
+                    return;
+                case nameof(Commands.exit): return;
                 default:
                     Console.WriteLine("Сommand not found!");
-                    break;
+                    return;
             }
         }
     }

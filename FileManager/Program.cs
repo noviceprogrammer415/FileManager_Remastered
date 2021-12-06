@@ -8,6 +8,9 @@ var diskService = ISingleton<DiskService>.Instance();
 var directoryService = ISingleton<DirectoryService>.Instance();
 var fileService = ISingleton<FileService>.Instance();
 var inputService = ISingleton<InputService>.Instance();
+var outputService = ISingleton<OutputService>.Instance();
 
-var manager = new Manager(diskService, directoryService, fileService, inputService);
+Console.Title = "FileManager";
+
+var manager = new Manager(diskService, directoryService, fileService, inputService, outputService);
 manager.Run();

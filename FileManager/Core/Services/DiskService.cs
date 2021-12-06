@@ -6,7 +6,7 @@ namespace FileManager.Actions
 {
     public class DiskService : IDiskService, ISingleton<DiskService>
     {
-        private StringBuilder _error = new("Internal Error! Code: ");
+        private readonly StringBuilder _error = new("Internal Error! Code: ");
         [Flags] private enum Errors { D1v, D2v };
 
         public IEnumerable<DriveInfo> GetDisks()

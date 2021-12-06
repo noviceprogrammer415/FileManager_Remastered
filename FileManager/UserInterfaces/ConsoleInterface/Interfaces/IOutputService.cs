@@ -9,6 +9,6 @@ namespace FileManager.IOServices.Interfaces
 {
     public interface IOutputService : ISingleton<OutputService>
     {
-        
+        void PrintCollectionObjects<T>(IEnumerable<T> collection);
     }
 }

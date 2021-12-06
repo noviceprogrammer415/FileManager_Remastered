@@ -5,6 +5,7 @@
     {
         dir,
         disk,
+        diskpart,
         exit,
         cd,
         clr,

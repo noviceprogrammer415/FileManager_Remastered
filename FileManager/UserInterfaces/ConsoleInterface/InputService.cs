@@ -9,18 +9,16 @@ namespace FileManager.IOServices
 {
     public class InputService : IInputService
     {
-        public void InputData(out StringBuilder command, out StringBuilder path)
+        public void InputData(ref string currentDirrectory, out string command, out string path)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($">>[] ");
+            Console.Write($">>[{currentDirrectory}] ");
             Console.ResetColor();
 
-            var str = Console.ReadLine();
-            var Command = str?.ToString().Split(" ")[0];
-            var Path = str?.ToString().Remove(0, Command!.Length);
+            var entryArray = Console.ReadLine()?.Split(" ");
 
-            command = new(Command, Command!.Length);
-            path = new(Path, Path!.Length);
+            command = entryArray?[0]!;
+            path = entryArray?.Length > 1 ? entryArray?[1]! : "";
         }
     }
 }
