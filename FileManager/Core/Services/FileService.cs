@@ -1,9 +1,10 @@
-﻿using FileManager.Services.Interfaces;
-using System.Text;
+﻿using System.Text;
+using FileManager.Core.Services.Interfaces;
+using FileManager.Services.Interfaces;
 
-namespace FileManager.Services
+namespace FileManager.Core.Services
 {
-    public class FileService : IFileService, INascency<FileService>
+    public class FileService : IFileService, ISingleton<FileService>
     {
         /// <summary> Копирует существующий файл в новый файл </summary>
         /// <param name="sourceName">копируемый файл</param>

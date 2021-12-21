@@ -1,12 +1,8 @@
-﻿namespace FileManager.Services.Interfaces
+﻿namespace FileManager.Core.Services.Interfaces
 {
-    public interface INascency<T> where T : new()
+    public interface ISingleton<T> where T : class, new()
     {
         static T? _instance;
-        static T Instance()
-        {
-            if (_instance is null) _instance = new();
-            return _instance;
-        }
+        static T? Instance => _instance ??= new T();
     }
 }

@@ -1,12 +1,11 @@
-﻿using FileManager.Services.Interfaces;
-using System.Security;
+﻿using System.Diagnostics;
 using System.Text;
-using System.Collections.Generic;
-using System.Diagnostics;
+using FileManager.Core.Services.Interfaces;
+using FileManager.Services.Interfaces;
 
-namespace FileManager.Services
+namespace FileManager.Core.Services
 {
-    public class DirectoryService : IDirectoryService, INascency<DirectoryService>
+    public class DirectoryService : IDirectoryService, ISingleton<DirectoryService>
     {
         private readonly string _error = "Internal Error! Code:";
         [Flags] private enum Errors { D1, D2, D3, D4 };

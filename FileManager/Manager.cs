@@ -1,8 +1,8 @@
 ﻿using FileManager.Core.Repository;
 using FileManager.Core.Services;
-using FileManager.IOServices.Interfaces;
 using FileManager.Services.Interfaces;
-using System.Text;
+using FileManager.Core.Services.Interfaces;
+using FileManager.UserInterfaces.ConsoleInterface.Interfaces;
 
 namespace FileManager
 { 
@@ -38,7 +38,7 @@ namespace FileManager
             do
             {
                 _inputService.InputData(ref _currentDirectory!, out command, out string path);
-                if(!string.IsNullOrEmpty(command.ToString())) ManageDirectory(command, path);
+                if(!string.IsNullOrEmpty(command)) ManageDirectory(command, path);
             } while (!command.Equals(Commands.exit.ToString()));
         }
 

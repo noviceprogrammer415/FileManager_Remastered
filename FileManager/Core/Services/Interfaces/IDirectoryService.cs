@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FileManager.Services.Interfaces;
 
-namespace FileManager.Services.Interfaces
+namespace FileManager.Core.Services.Interfaces
 {
     public interface IDirectoryService : IService<DirectoryService>
     {

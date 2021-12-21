@@ -1,16 +1,15 @@
 ﻿using FileManager;
-using FileManager.Actions;
 using FileManager.Core.Repository;
-using FileManager.IOServices;
-using FileManager.Services;
-using FileManager.Services.Interfaces;
+using FileManager.Core.Services;
+using FileManager.Core.Services.Interfaces;
+using FileManager.UserInterfaces.ConsoleInterface;
 
-var directoryService = INascency<DirectoryService>.Instance();
-var diskService = INascency<DiskService>.Instance();
-var fileService = INascency<FileService>.Instance();
-var inputService = INascency<InputService>.Instance();
-var outputService = INascency<OutputService>.Instance();
-var repository = INascency<Repository>.Instance();
+var directoryService = ISingleton<DirectoryService>.Instance;
+var diskService = ISingleton<DiskService>.Instance;
+var fileService = ISingleton<FileService>.Instance;
+var inputService = ISingleton<InputService>.Instance;
+var outputService = ISingleton<OutputService>.Instance;
+var repository = ISingleton<Repository>.Instance;
 
 Console.Title = "FileManager";
 

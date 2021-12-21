@@ -1,11 +1,6 @@
-﻿using FileManager.IOServices.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FileManager.UserInterfaces.ConsoleInterface.Interfaces;
 
-namespace FileManager.IOServices
+namespace FileManager.UserInterfaces.ConsoleInterface
 {
     public class OutputService : IOutputService
     {

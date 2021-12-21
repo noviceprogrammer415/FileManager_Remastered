@@ -1,14 +1,9 @@
-﻿using FileManager.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FileManager.Core.Services.Interfaces;
 
-namespace FileManager.IOServices.Interfaces
+namespace FileManager.UserInterfaces.ConsoleInterface.Interfaces
 {
-    public interface IInputService : INascency<InputService>
+    public interface IInputService : ISingleton<InputService>
     {
-        void InputData(ref string currentDirrectory, out string command, out string path);
+        void InputData(ref string currentDirectory, out string command, out string path);
     }
 }

@@ -1,18 +1,13 @@
-﻿using FileManager.IOServices.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FileManager.UserInterfaces.ConsoleInterface.Interfaces;
 
-namespace FileManager.IOServices
+namespace FileManager.UserInterfaces.ConsoleInterface
 {
     public class InputService : IInputService
     {
-        public void InputData(ref string currentDirrectory, out string command, out string path)
+        public void InputData(ref string currentDirectory, out string command, out string path)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($">>[{currentDirrectory}] ");
+            Console.Write($">>[{currentDirectory}] ");
             Console.ResetColor();
 
             var entryArray = Console.ReadLine()?.Split(" ");
