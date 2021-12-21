@@ -1,4 +1,5 @@
-﻿using FileManager.Core.Repository;
+﻿using FileManager.Core.Report;
+using FileManager.Core.Repository;
 using FileManager.Core.Services;
 using FileManager.Services.Interfaces;
 using FileManager.Core.Services.Interfaces;
@@ -6,7 +7,7 @@ using FileManager.UserInterfaces.ConsoleInterface.Interfaces;
 
 namespace FileManager
 { 
-    public class Manager
+    public sealed class Manager
     {
         private string? _currentDirectory;
         private readonly IDiskService _diskService;
@@ -37,14 +38,14 @@ namespace FileManager
 
             do
             {
-                _inputService.InputData(ref _currentDirectory!, out command, out string path);
+                _inputService.InputData(ref _currentDirectory!, out command, out var path);
                 if(!string.IsNullOrEmpty(command)) ManageDirectory(command, path);
             } while (!command.Equals(Commands.exit.ToString()));
         }
 
         private void ManageDirectory(string command, string path)
         {
-            switch (command.ToString())
+            switch (command)
             {
                 case nameof(Commands.back):
                     
@@ -59,13 +60,17 @@ namespace FileManager
                     return;
                 case nameof(Commands.diskpart): _currentDirectory = path;
                     break;
+                case nameof(Commands.diskreport):
+                    var reportService = ISingleton<ReportService>.Instance;
+                    reportService?.GenerateReport(new("DiskReportTemplate.docx"), "DiskReport.docx");
+                    break;
                 case nameof(Commands.cd): _currentDirectory = Path.Combine(_currentDirectory!, path);
                     break;
                 case nameof(Commands.clr): Console.Clear();
                     return;
                 case nameof(Commands.exit): return;
                 default:
-                    Console.WriteLine("Сommand not found!");
+                    Console.WriteLine("Command not found!");
                     return;
             }
         }

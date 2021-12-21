@@ -8,6 +8,7 @@
         dir,
         disk,
         diskpart,
+        diskreport,
         exit,
         cd,
         clr,
