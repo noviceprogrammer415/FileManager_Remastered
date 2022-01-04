@@ -69,12 +69,9 @@ namespace FileManager.Core.Services
             try
             {
                 if (File.Exists(name))
-                {
                     File.Delete(name);
-                    return true;
-                }
 
-                return false;
+                return true;
             }
             catch (IOException ex)
             {

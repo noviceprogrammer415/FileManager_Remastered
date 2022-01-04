@@ -105,12 +105,9 @@ namespace FileManager.Core.Services
             try
             {
                 if (Directory.Exists(path))
-                {
-                    Directory.Delete(path, true);
-                    return true;
-                }
+                    Directory.Delete(path, recursive: true);
 
-                return false;
+                return true;
             }
             catch (IOException ex)
             {
