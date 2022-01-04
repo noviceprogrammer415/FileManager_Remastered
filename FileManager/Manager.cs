@@ -54,6 +54,9 @@ namespace FileManager
                 case nameof(Commands.back):
                     _currentPath = Directory.GetParent(_currentPath!)?.FullName;
                     break;
+                case nameof(Commands.btr):
+                    _currentPath = Directory.GetDirectoryRoot(_currentPath!);
+                    break;
                 case nameof(Commands.dir):
                     var directories = _directoryService.GetDirectories(_currentPath!);
                     _outputService.PrintCollectionObjects(directories);
