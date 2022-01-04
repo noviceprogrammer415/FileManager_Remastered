@@ -8,16 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="CurrentDirectory.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="CurrentDirectory.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="TemplateEngine.Docx" Version="1.1.5" />
   </ItemGroup>
 

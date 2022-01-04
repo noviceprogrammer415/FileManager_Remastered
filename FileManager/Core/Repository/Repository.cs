@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FileManager.Core.Repository
+﻿namespace FileManager.Core.Repository
 {
     public class Repository : IRepository
     {
-        public void Create(string path)
+        private readonly FileInfo _fileInfo = new("SavePath.txt");
+
+        public void Create(string savedPath)
         {
-            throw new NotImplementedException();
+            using var streamWriter = _fileInfo.CreateText();
+            streamWriter.WriteLine(savedPath);
         }
 
-        public void Read()
+        public void Read(out string readPath)
         {
-            throw new NotImplementedException();
+            using var streamReader = _fileInfo.OpenText();
+            readPath = streamReader.ReadLine()!;
         }
 
-        public void Update(string path)
-        {
-            throw new NotImplementedException();
-        }
+        public void Update(string updatedPath) => Create(updatedPath);
     }
 }
