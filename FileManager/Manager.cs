@@ -43,16 +43,16 @@ namespace FileManager
             do
             {
                 _inputService.InputData(ref _currentPath!, out command, out var path);
-                if(!string.IsNullOrEmpty(command)) ManageDirectory(command, path);
+                if(!string.IsNullOrEmpty(command)) ExecuteCommands(command, path);
             } while (!command.Equals(Commands.exit.ToString()));
         }
 
-        private void ManageDirectory(string command, string path)
+        private void ExecuteCommands(string command, string path)
         {
             switch (command)
             {
                 case nameof(Commands.back):
-                    
+                    _currentPath = Directory.GetParent(_currentPath!)?.FullName;
                     break;
                 case nameof(Commands.dir):
                     var directories = _directoryService.GetDirectories(_currentPath!);
