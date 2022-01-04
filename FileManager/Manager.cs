@@ -57,6 +57,10 @@ namespace FileManager
                 case nameof(Commands.btr):
                     _currentPath = Directory.GetDirectoryRoot(_currentPath!);
                     break;
+                case nameof(Commands.crt):
+                    if (Path.HasExtension(path)) _fileService.Create(Path.Combine(_currentPath!, path));
+                    else _directoryService.Create(Path.Combine(_currentPath!, path));
+                    break;
                 case nameof(Commands.dir):
                     var directories = _directoryService.GetDirectories(_currentPath!);
                     _outputService.PrintCollectionObjects(directories);
