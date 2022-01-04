@@ -83,6 +83,10 @@ namespace FileManager
                     if (File.Exists(_fileName)) _repository.Update(_currentPath!); 
                     else _repository.Create(_currentPath!);
                     return;
+                case nameof(Commands.rm):
+                    if (Path.HasExtension(path)) _fileService.Delete(Path.Combine(_currentPath!, path));
+                    else _directoryService.Delete(Path.Combine(_currentPath!, path));
+                    break;
                 default:
                     Console.WriteLine("Command not found!");
                     return;
