@@ -1,6 +1,4 @@
-﻿using System.Text;
-using FileManager.Core.Services.Interfaces;
-using FileManager.Services.Interfaces;
+﻿using FileManager.Core.Services.Interfaces;
 
 namespace FileManager.Core.Services
 {

@@ -1,7 +1,5 @@
 ﻿using System.Diagnostics;
-using System.Text;
 using FileManager.Core.Services.Interfaces;
-using FileManager.Services.Interfaces;
 
 namespace FileManager.Core.Services
 {
@@ -15,8 +13,8 @@ namespace FileManager.Core.Services
         /// <param name="destPath">путь цели</param>
         public void Copy(string sourcePath, string destPath)
         {
-            var dirSource = new DirectoryInfo(sourcePath.ToString());
-            var dirDest = new DirectoryInfo(destPath.ToString());
+            var dirSource = new DirectoryInfo(sourcePath);
+            var dirDest = new DirectoryInfo(destPath);
 
             CopyAll(dirSource, dirDest);
         }
@@ -67,13 +65,11 @@ namespace FileManager.Core.Services
         {
             try
             {
-                if (!Directory.Exists(path.ToString()))
-                {
-                    Directory.CreateDirectory(path.ToString());
-                    return true;
-                }
+                if (Directory.Exists(path))
+                    Directory.Delete(path);
 
-                return false;
+                Directory.CreateDirectory(path);
+                return true;
             }
             catch (IOException ex)
             {
@@ -108,9 +104,9 @@ namespace FileManager.Core.Services
         {
             try
             {
-                if (Directory.Exists(path.ToString()))
+                if (Directory.Exists(path))
                 {
-                    Directory.Delete(path.ToString(), true);
+                    Directory.Delete(path, true);
                     return true;
                 }
 
@@ -172,7 +168,7 @@ namespace FileManager.Core.Services
         {
             try
             {
-                var directoryInfo = new DirectoryInfo(name.ToString());
+                var directoryInfo = new DirectoryInfo(name);
                 return directoryInfo.GetFiles("*.*", SearchOption.AllDirectories).Sum(f => f.Length);
             }
             catch (IOException ex)
@@ -191,9 +187,9 @@ namespace FileManager.Core.Services
         {
             try
             {
-                if(!Directory.Exists(destName.ToString()))
+                if(!Directory.Exists(destName))
                 {
-                    Directory.Move(sourceName.ToString(), destName.ToString());
+                    Directory.Move(sourceName, destName);
                     return true;
                 }
 
@@ -226,9 +222,9 @@ namespace FileManager.Core.Services
         {
             try
             {
-                if(!Directory.Exists(newName.ToString()))
+                if(!Directory.Exists(newName))
                 {
-                    Directory.Move(oldName.ToString(), newName.ToString());
+                    Directory.Move(oldName, newName);
                 }
             }
             catch (IOException ex)
