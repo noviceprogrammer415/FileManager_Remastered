@@ -9,11 +9,11 @@ namespace FileManager.Core.Services
         /// <summary> Копирует существующий файл в новый файл </summary>
         /// <param name="sourceName">копируемый файл</param>
         /// <param name="destName">имя целевого файла</param>
-        public void Copy(StringBuilder sourceName, StringBuilder destName)
+        public void Copy(string sourceName, string destName)
         {
             try
             {
-                File.Copy(sourceName.ToString(), destName.ToString());
+                File.Copy(sourceName, destName);
             }
             catch (IOException ex)
             {
@@ -36,17 +36,15 @@ namespace FileManager.Core.Services
         /// <summary> Создает файлы </summary>
         /// <param name="name">имя файла</param>
         /// <returns>результат выполнения</returns>
-        public bool Create(StringBuilder name)
+        public bool Create(string name)
         {
             try
             {
-                if(!File.Exists(name.ToString()))
-                {
-                    using var fileStream = File.Create(name.ToString());
-                    return true;
-                }
+                if(File.Exists(name))
+                    File.Delete(name);
 
-                return false;
+                using var fileStream = File.Create(name);
+                return true;
             }
             catch (IOException ex)
             {
@@ -68,13 +66,13 @@ namespace FileManager.Core.Services
         /// <summary> Удаляет файл </summary>
         /// <param name="name">имя файла</param>
         /// <returns>результат выполнения</returns>
-        public bool Delete(StringBuilder name)
+        public bool Delete(string name)
         {
             try
             {
-                if (File.Exists(name.ToString()))
+                if (File.Exists(name))
                 {
-                    File.Delete(name.ToString());
+                    File.Delete(name);
                     return true;
                 }
 
@@ -105,11 +103,11 @@ namespace FileManager.Core.Services
         /// <summary> Получает размер файла в байтах </summary>
         /// <param name="name">имя файла</param>
         /// <returns>размер файла в байтах</returns>
-        public long GetSize(StringBuilder name)
+        public long GetSize(string name)
         {
             try
             {
-                var fileInfo = new FileInfo(name.ToString());
+                var fileInfo = new FileInfo(name);
                 return fileInfo.Length;
             }
             catch (IOException ex)
@@ -123,13 +121,13 @@ namespace FileManager.Core.Services
         /// <param name="sourcePath">начальный путь</param>
         /// <param name="destPath">конечный путь</param>
         /// <returns>результат операции</returns>
-        public bool Move(StringBuilder sourcePath, StringBuilder destPath)
+        public bool Move(string sourcePath, string destPath)
         {
             try
             {
-                if(!File.Exists(destPath.ToString()))
+                if(!File.Exists(destPath))
                 {
-                    File.Move(sourcePath.ToString(), destPath.ToString());
+                    File.Move(sourcePath, destPath);
                     return true;
                 }
 
@@ -160,11 +158,11 @@ namespace FileManager.Core.Services
         /// <summary> Переименовывает файл </summary>
         /// <param name="oldName">имя файла, которое нужно изменить</param>
         /// <param name="newName">имя, на которое нужно изменить</param>
-        public void Rename(StringBuilder oldName, StringBuilder newName)
+        public void Rename(string oldName, string newName)
         {
             try
             {
-                File.Move(oldName.ToString(), newName.ToString());
+                File.Move(oldName, newName);
             }
             catch (IOException ex)
             {

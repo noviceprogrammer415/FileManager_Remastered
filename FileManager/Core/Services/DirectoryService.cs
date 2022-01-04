@@ -13,7 +13,7 @@ namespace FileManager.Core.Services
         /// <summary> Копирует содержимое директории </summary>
         /// <param name="sourcePath">путь источника</param>
         /// <param name="destPath">путь цели</param>
-        public void Copy(StringBuilder sourcePath, StringBuilder destPath)
+        public void Copy(string sourcePath, string destPath)
         {
             var dirSource = new DirectoryInfo(sourcePath.ToString());
             var dirDest = new DirectoryInfo(destPath.ToString());
@@ -63,7 +63,7 @@ namespace FileManager.Core.Services
         /// <summary> Создает директорию </summary>
         /// <param name="path">путь, по которому необходимо создать директорию</param>
         /// <returns>результат операции</returns>
-        public bool Create(StringBuilder path)
+        public bool Create(string path)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace FileManager.Core.Services
         /// <summary> Удаляет директорию и все ее поддиректории и файлы </summary>
         /// <param name="path">путь, по которому необходимо удалить директорию</param>
         /// <returns>результат операции</returns>
-        public bool Delete(StringBuilder path)
+        public bool Delete(string path)
         {
             try
             {
@@ -168,7 +168,7 @@ namespace FileManager.Core.Services
         /// <summary> Получает размер директории в байтах </summary>
         /// <param name="name">имя директории</param>
         /// <returns>размер в байтах</returns>
-        public long GetSize(StringBuilder name)
+        public long GetSize(string name)
         {
             try
             {
@@ -187,7 +187,7 @@ namespace FileManager.Core.Services
         /// <param name="sourceName">Путь к файлу или каталогу, который необходимо переместить</param>
         /// <param name="destName">Путь к новому местоположению</param>
         /// <returns>результат операции</returns>
-        public bool Move(StringBuilder sourceName, StringBuilder destName)
+        public bool Move(string sourceName, string destName)
         {
             try
             {
@@ -222,7 +222,7 @@ namespace FileManager.Core.Services
         /// <summary> Переименовывает каталог </summary>
         /// <param name="oldName">имя, которое нужно изменить</param>
         /// <param name="newName">имя, на которое нужно изменить</param>
-        public void Rename(StringBuilder oldName, StringBuilder newName)
+        public void Rename(string oldName, string newName)
         {
             try
             {

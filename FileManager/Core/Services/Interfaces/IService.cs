@@ -1,14 +1,12 @@
-﻿using System.Text;
-
-namespace FileManager.Services.Interfaces
+﻿namespace FileManager.Core.Services.Interfaces
 {
     public interface IService<T> where T : class
     {
-        void Copy(StringBuilder sourcePath, StringBuilder destPath);
-        bool Create(StringBuilder path);
-        bool Delete(StringBuilder path);
-        long GetSize(StringBuilder name);
-        bool Move(StringBuilder sourcePath, StringBuilder destPath);
-        void Rename(StringBuilder oldName, StringBuilder newName);
+        void Copy(string sourcePath, string destPath);
+        bool Create(string path);
+        bool Delete(string path);
+        long GetSize(string name);
+        bool Move(string sourcePath, string destPath);
+        void Rename(string oldName, string newName);
     }
 }
