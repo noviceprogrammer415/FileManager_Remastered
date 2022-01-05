@@ -13,5 +13,5 @@ var repository = ISingleton<Repository>.Instance;
 
 Console.Title = "FileManager";
 
-var manager = new Manager(diskService, directoryService, fileService, inputService, outputService, repository);
+var manager = new Manager(diskService!, directoryService!, fileService!, inputService!, outputService!, repository!);
 manager.Run();

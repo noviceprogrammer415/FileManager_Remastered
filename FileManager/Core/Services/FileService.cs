@@ -160,6 +160,9 @@ namespace FileManager.Core.Services
         {
             try
             {
+                if(File.Exists(newName))
+                    File.Delete(newName);
+
                 File.Move(oldName, newName);
             }
             catch (IOException ex)
