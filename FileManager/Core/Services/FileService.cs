@@ -119,51 +119,14 @@ namespace FileManager.Core.Services
         /// <param name="sourcePath">начальный путь</param>
         /// <param name="destPath">конечный путь</param>
         /// <returns>результат операции</returns>
-        public bool Move(string sourcePath, string destPath)
+        public void Move(string sourcePath, string destPath)
         {
             try
             {
                 if(!File.Exists(destPath))
-                {
-                    File.Move(sourcePath, destPath);
-                    return true;
-                }
+                    File.Delete(destPath);
 
-                return false;
-            }
-            catch (IOException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-            catch (NotSupportedException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-        }
-
-        /// <summary> Переименовывает файл </summary>
-        /// <param name="oldName">имя файла, которое нужно изменить</param>
-        /// <param name="newName">имя, на которое нужно изменить</param>
-        public void Rename(string oldName, string newName)
-        {
-            try
-            {
-                if(File.Exists(newName))
-                    File.Delete(newName);
-
-                File.Move(oldName, newName);
+                File.Move(sourcePath, destPath);
             }
             catch (IOException ex)
             {

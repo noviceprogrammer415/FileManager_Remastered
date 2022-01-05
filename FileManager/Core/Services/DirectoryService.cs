@@ -175,47 +175,11 @@ namespace FileManager.Core.Services
                 return 0;
             }
         }
-
-        /// <summary> Перемещает файл или каталог со всем его содержимым в новое местоположение </summary>
-        /// <param name="sourceName">Путь к файлу или каталогу, который необходимо переместить</param>
-        /// <param name="destName">Путь к новому местоположению</param>
-        /// <returns>результат операции</returns>
-        public bool Move(string sourceName, string destName)
-        {
-            try
-            {
-                if(!Directory.Exists(destName))
-                {
-                    Directory.Move(sourceName, destName);
-                    return true;
-                }
-
-                return false;
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D1}");
-                return false;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D3}");
-                return false;
-            }
-            catch (ArgumentException ex)
-            {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D2}");
-                return false;
-            }
-        }
-
+        
         /// <summary> Переименовывает каталог </summary>
         /// <param name="oldName">имя, которое нужно изменить</param>
         /// <param name="newName">имя, на которое нужно изменить</param>
-        public void Rename(string oldName, string newName)
+        public void Move(string oldName, string newName)
         {
             try
             {

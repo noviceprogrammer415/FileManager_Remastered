@@ -6,7 +6,6 @@
         bool Create(string path);
         bool Delete(string path);
         long GetSize(string name);
-        bool Move(string sourcePath, string destPath);
-        void Rename(string oldName, string newName);
+        void Move(string sourcePath, string destPath);
     }
 }
