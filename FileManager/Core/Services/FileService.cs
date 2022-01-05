@@ -11,6 +11,9 @@ namespace FileManager.Core.Services
         {
             try
             {
+                if(File.Exists(destName))
+                    File.Delete(destName);
+
                 File.Copy(sourceName, destName);
             }
             catch (IOException ex)

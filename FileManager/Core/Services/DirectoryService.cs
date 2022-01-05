@@ -219,10 +219,10 @@ namespace FileManager.Core.Services
         {
             try
             {
-                if(!Directory.Exists(newName))
-                {
-                    Directory.Move(oldName, newName);
-                }
+                if(Directory.Exists(newName))
+                    Directory.Delete(newName);
+
+                Directory.Move(oldName, newName);
             }
             catch (IOException ex)
             {
