@@ -42,12 +42,12 @@ namespace FileManager
 
             do
             {
-                _inputService.InputData(ref _currentPath!, out command, out var path);
-                if(!string.IsNullOrEmpty(command)) ExecuteCommands(command, path);
+                _inputService.InputData(ref _currentPath!, out command, out var sourcePath, out var destPath);
+                if(!string.IsNullOrEmpty(command)) ExecuteCommands(ref command, ref sourcePath, ref destPath);
             } while (!command.Equals(Commands.exit.ToString()));
         }
 
-        private void ExecuteCommands(string command, string path)
+        private void ExecuteCommands(ref string command, ref string sourcePath, ref string destPath)
         {
             switch (command)
             {
@@ -58,8 +58,12 @@ namespace FileManager
                     _currentPath = Directory.GetDirectoryRoot(_currentPath!);
                     break;
                 case nameof(Commands.crt):
-                    if (Path.HasExtension(path)) _fileService.Create(Path.Combine(_currentPath!, path));
-                    else _directoryService.Create(Path.Combine(_currentPath!, path));
+                    if (Path.HasExtension(sourcePath)) _fileService.Create(Path.Combine(_currentPath!, sourcePath));
+                    else _directoryService.Create(Path.Combine(_currentPath!, sourcePath));
+                    break;
+                case nameof(Commands.cp):
+                    if(Path.HasExtension(sourcePath)) _fileService.Copy(Path.Combine(_currentPath!, sourcePath), Path.Combine(destPath, sourcePath));
+                    else _directoryService.Copy(Path.Combine(_currentPath!, sourcePath), Path.Combine(destPath, sourcePath));
                     break;
                 case nameof(Commands.dir):
                     var directories = _directoryService.GetDirectories(_currentPath!);
@@ -69,13 +73,13 @@ namespace FileManager
                     var disks = _diskService.GetDisks();
                     _outputService.PrintCollectionObjects(disks);
                     return;
-                case nameof(Commands.diskpart): _currentPath = path;
+                case nameof(Commands.diskpart): _currentPath = sourcePath;
                     break;
                 case nameof(Commands.diskreport):
                     var reportService = ISingleton<ReportService>.Instance;
                     reportService?.GenerateReport(new("DiskReportTemplate.docx"), "DiskReport.docx");
                     break;
-                case nameof(Commands.cd): _currentPath = Path.Combine(_currentPath!, path);
+                case nameof(Commands.cd): _currentPath = Path.Combine(_currentPath!, sourcePath);
                     break;
                 case nameof(Commands.clr): Console.Clear();
                     return;
@@ -84,8 +88,8 @@ namespace FileManager
                     else _repository.Create(_currentPath!);
                     return;
                 case nameof(Commands.rm):
-                    if (Path.HasExtension(path)) _fileService.Delete(Path.Combine(_currentPath!, path));
-                    else _directoryService.Delete(Path.Combine(_currentPath!, path));
+                    if (Path.HasExtension(sourcePath)) _fileService.Delete(Path.Combine(_currentPath!, sourcePath));
+                    else _directoryService.Delete(Path.Combine(_currentPath!, sourcePath));
                     break;
                 default:
                     Console.WriteLine("Command not found!");
