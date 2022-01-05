@@ -98,9 +98,14 @@ namespace FileManager
                     else _repository.Create(_currentPath!);
                     return;
 
+                case nameof(Commands.move):
+                    if (Path.HasExtension(sourcePath)) _fileService.Move(Path.Combine(_currentPath!, sourcePath), Path.Combine(destPath, sourcePath));
+                    else _directoryService.Move(Path.Combine(_currentPath!, sourcePath), Path.Combine(destPath, sourcePath));
+                    break;
+
                 case nameof(Commands.rename):
-                    if(Path.HasExtension(sourcePath)) _fileService.Rename(Path.Combine(_currentPath!, sourcePath), Path.Combine(_currentPath!, destPath));
-                    else _directoryService.Rename(Path.Combine(_currentPath!, sourcePath), Path.Combine(_currentPath!, destPath));
+                    if(Path.HasExtension(sourcePath)) _fileService.Move(Path.Combine(_currentPath!, sourcePath), Path.Combine(_currentPath!, destPath));
+                    else _directoryService.Move(Path.Combine(_currentPath!, sourcePath), Path.Combine(_currentPath!, destPath));
                     break;
 
                 case nameof(Commands.rm):
