@@ -113,6 +113,19 @@ namespace FileManager
                     else _directoryService.Delete(Path.Combine(_currentPath!, sourcePath));
                     break;
 
+                case nameof(Commands.size):
+                    if (Path.HasExtension(sourcePath))
+                    {
+                        _fileService.GetSize(Path.Combine(_currentPath!, sourcePath), out long sizeFile);
+                        _outputService.PrintSizeObject(ref sourcePath, ref sizeFile);
+                    }
+                    else
+                    {
+                        _directoryService.GetSize(Path.Combine(_currentPath!, sourcePath), out long sizeDirectory);
+                        _outputService.PrintSizeObject(ref sourcePath, ref sizeDirectory);
+                    }
+                    break;
+
                 default:
                     Console.WriteLine("Command not found!");
                     return;

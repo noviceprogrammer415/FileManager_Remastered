@@ -2,7 +2,7 @@
 
 namespace FileManager.UserInterfaces.ConsoleInterface
 {
-    public class OutputService : IOutputService
+    public sealed class OutputService : IOutputService
     {
         public void PrintCollectionObjects<T>(IEnumerable<T> collection)
         {
@@ -22,5 +22,8 @@ namespace FileManager.UserInterfaces.ConsoleInterface
                 }
             }
         }
+
+        public void PrintSizeObject(ref string name, ref long size) 
+            => Console.WriteLine($"Размер объекта {name} {size} байт(а)");
     }
 }
