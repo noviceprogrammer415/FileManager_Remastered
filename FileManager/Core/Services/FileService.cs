@@ -101,17 +101,17 @@ namespace FileManager.Core.Services
         /// <summary> Получает размер файла в байтах </summary>
         /// <param name="name">имя файла</param>
         /// <returns>размер файла в байтах</returns>
-        public long GetSize(string name)
+        public void GetSize(string name, out long size)
         {
             try
             {
                 var fileInfo = new FileInfo(name);
-                return fileInfo.Length;
+                size = fileInfo.Length;
             }
             catch (IOException ex)
             {
                 Console.WriteLine(ex.Message);
-                return 0;
+                size = 0;
             }
         }
 

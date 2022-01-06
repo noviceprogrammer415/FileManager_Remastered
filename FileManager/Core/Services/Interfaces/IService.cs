@@ -5,7 +5,7 @@
         void Copy(string sourcePath, string destPath);
         bool Create(string path);
         bool Delete(string path);
-        long GetSize(string name);
+        void GetSize(string name, out long size);
         void Move(string sourcePath, string destPath);
     }
 }

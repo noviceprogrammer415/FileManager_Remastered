@@ -161,18 +161,18 @@ namespace FileManager.Core.Services
         /// <summary> Получает размер директории в байтах </summary>
         /// <param name="name">имя директории</param>
         /// <returns>размер в байтах</returns>
-        public long GetSize(string name)
+        public void GetSize(string name, out long size)
         {
             try
             {
                 var directoryInfo = new DirectoryInfo(name);
-                return directoryInfo.GetFiles("*.*", SearchOption.AllDirectories).Sum(f => f.Length);
+                size = directoryInfo.GetFiles("*.*", SearchOption.AllDirectories).Sum(f => f.Length);
             }
             catch (IOException ex)
             {
                 Debug.WriteLine(ex.Message);
                 Console.WriteLine($"{_error} {Errors.D1}");
-                return 0;
+                size = 0;
             }
         }
         
