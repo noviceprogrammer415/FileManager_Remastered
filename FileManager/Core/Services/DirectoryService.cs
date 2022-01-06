@@ -1,12 +1,12 @@
 ﻿using System.Diagnostics;
 using FileManager.Core.Services.Interfaces;
+using Serilog;
 
 namespace FileManager.Core.Services
 {
     public class DirectoryService : IDirectoryService, ISingleton<DirectoryService>
     {
-        private readonly string _error = "Internal Error! Code:";
-        [Flags] private enum Errors { D1, D2, D3, D4 };
+        private readonly string _error = "Internal error!";
 
         /// <summary> Копирует содержимое директории </summary>
         /// <param name="sourcePath">путь источника</param>
@@ -38,23 +38,23 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D1}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
             }
             catch (ArgumentException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D2}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
             }
             catch (UnauthorizedAccessException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D3}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
             }
             catch (NotSupportedException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D4}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
             }
         }
 
@@ -73,26 +73,26 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D1}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 return false;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D3}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 return false;
             }
             catch (ArgumentException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D2}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 return false;
             }
             catch (NotSupportedException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D4}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 return false;
             }
         }
@@ -111,20 +111,20 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D1}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 return false;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D3}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 return false;
             }
             catch (ArgumentException ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D2}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 return false;
             }
         }
@@ -140,20 +140,20 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D1}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 return Array.Empty<string>();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D3}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 return Array.Empty<string>();
             }
             catch (ArgumentException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D2}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 return Array.Empty<string>();
             }
         }
@@ -170,8 +170,8 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D1}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
                 size = 0;
             }
         }
@@ -190,18 +190,18 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D1}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
             }
             catch (UnauthorizedAccessException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D3}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
             }
             catch (ArgumentException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine($"{_error} {Errors.D2}");
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine($"{_error}");
             }
         }
     }

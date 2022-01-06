@@ -7,8 +7,7 @@ namespace FileManager.Core.Services
 {
     public class DiskService : IDiskService, ISingleton<DiskService>
     {
-        private readonly StringBuilder _error = new("Internal Error! Code: ");
-        [Flags] private enum Errors { D1v, D2v };
+        private readonly string _error = "Internal error!";
 
         public IEnumerable<DriveInfo> GetDisks()
         {
@@ -18,14 +17,14 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine(_error.Append(Errors.D1v));
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
                 return Array.Empty<DriveInfo>();
             }
             catch (UnauthorizedAccessException ex)
             {
-                Debug.WriteLine(ex.Message);
-                Console.WriteLine(_error.Append(Errors.D2v));
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
                 return Array.Empty<DriveInfo>();
             }
         }

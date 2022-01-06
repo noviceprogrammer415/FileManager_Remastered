@@ -4,6 +4,8 @@ namespace FileManager.Core.Services
 {
     public class FileService : IFileService, ISingleton<FileService>
     {
+        private readonly string _error = "Internal error!";
+
         /// <summary> Копирует существующий файл в новый файл </summary>
         /// <param name="sourceName">копируемый файл</param>
         /// <param name="destName">имя целевого файла</param>
@@ -18,19 +20,23 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
             }
             catch (ArgumentException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
             }   
             catch (NotSupportedException ex)
-            {   
-                Console.WriteLine(ex.Message);
+            {  
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
             }
         }
 
@@ -49,17 +55,20 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
                 return false;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
                 return false;
             }
             catch (ArgumentException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
                 return false;
             }
         }
@@ -78,22 +87,26 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
                 return false;
             }
             catch (ArgumentException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
                 return false;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
                 return false;
             }
             catch (NotSupportedException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
                 return false;
             }
         }
@@ -110,7 +123,8 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
                 size = 0;
             }
         }
@@ -130,19 +144,23 @@ namespace FileManager.Core.Services
             }
             catch (IOException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
             }
             catch (ArgumentException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
             }
             catch (NotSupportedException ex)
             {
-                Console.WriteLine(ex.Message);
+                Logger.Log.Error(ex, "{0}", ex.Message);
+                Console.WriteLine(_error);
             }
         }
     }
