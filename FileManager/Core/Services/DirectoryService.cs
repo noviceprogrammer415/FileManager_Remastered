@@ -166,7 +166,7 @@ namespace FileManager.Core.Services
             try
             {
                 var directoryInfo = new DirectoryInfo(name);
-                size = directoryInfo.GetFiles("*.*", SearchOption.AllDirectories).Sum(f => f.Length);
+                size = directoryInfo.EnumerateFiles("*.*", SearchOption.AllDirectories).Sum(f => f.Length);
             }
             catch (IOException ex)
             {
