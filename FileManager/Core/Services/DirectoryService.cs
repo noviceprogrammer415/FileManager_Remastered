@@ -65,8 +65,7 @@ namespace FileManager.Core.Services
         {
             try
             {
-                if (Directory.Exists(path))
-                    Directory.Delete(path);
+                Directory.Delete(path);
 
                 Directory.CreateDirectory(path);
                 return true;
