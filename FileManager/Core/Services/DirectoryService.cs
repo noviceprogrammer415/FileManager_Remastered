@@ -25,7 +25,7 @@ namespace FileManager.Core.Services
             {
                 Directory.CreateDirectory(target.FullName);
 
-                foreach (var fileInfo in source.GetFiles())
+                foreach (var fileInfo in source.EnumerateFiles())
                 {
                     fileInfo.CopyTo(Path.Combine(target.FullName, fileInfo.Name), overwrite: true);
                 }
