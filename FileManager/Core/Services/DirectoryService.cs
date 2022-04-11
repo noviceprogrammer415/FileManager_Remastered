@@ -154,7 +154,7 @@ namespace FileManager.Core.Services
             {
                 Logger.Log.Error(ex, "{0}", ex.Message);
                 Console.WriteLine($"{_error}");
-                return Array.Empty<string>();
+                return Enumerable.Empty<string>();
             }
         }
 
