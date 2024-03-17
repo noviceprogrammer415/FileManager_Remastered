@@ -1,15 +1,15 @@
 ﻿using FileManager.Core.Report;
 using FileManager.Core.Repository;
-using FileManager.Core.Services;
 using FileManager.Services.Interfaces;
 using FileManager.Core.Services.Interfaces;
 using FileManager.UserInterfaces.ConsoleInterface.Interfaces;
+using FileManager.Core.Enums;
 
 namespace FileManager
-{ 
+{
     public sealed class Manager
     {
-        private string? _currentPath;
+        private string _currentPath = Directory.GetCurrentDirectory();
         private readonly IDiskService _diskService;
         private readonly IDirectoryService _directoryService;
         private const string _fileName = "SavePath.txt";
@@ -25,95 +25,91 @@ namespace FileManager
             IOutputService outputService,
             IRepository repository)
         {
-            _diskService = diskService;
-            _directoryService = directoryService;
-            _fileService = fileService;
-            _inputService = inputServices;
-            _outputService = outputService;
-            _repository = repository;
+            (_diskService, _directoryService, _fileService, _inputService, _outputService, _repository) 
+                = (diskService, directoryService, fileService, inputServices, outputService, repository);
         }
 
         public void Run()
         {
             string command;
 
-            if(File.Exists(_fileName))
-                _repository.Read(out _currentPath);
+            if (File.Exists(_fileName))
+                _repository.Read(_currentPath, out _currentPath);
 
             do
             {
                 _inputService.InputData(ref _currentPath!, out command, out var sourcePath, out var destPath);
-                if(!string.IsNullOrEmpty(command)) ExecuteCommands(ref command, ref sourcePath, ref destPath);
-            } while (!command.Equals(Commands.exit.ToString()));
+                if (!string.IsNullOrEmpty(command)) ExecuteCommands(ref command, ref sourcePath, ref destPath);
+            } while (command is not nameof(Commands.Exit));
         }
-
+                
         private void ExecuteCommands(ref string command, ref string sourcePath, ref string destPath)
         {
             switch (command)
             {
-                case nameof(Commands.back):
-                    _currentPath = Directory.GetParent(_currentPath!)?.FullName;
+                case nameof(Commands.Back):
+                    _currentPath = Directory.GetParent(_currentPath!)?.FullName!;
                     break;
 
-                case nameof(Commands.btr):
+                case nameof(Commands.Btr):
                     _currentPath = Directory.GetDirectoryRoot(_currentPath!);
                     break;
 
-                case nameof(Commands.crt):
+                case nameof(Commands.Crt):
                     if (Path.HasExtension(sourcePath)) _fileService.Create(Path.Combine(_currentPath!, sourcePath));
                     else _directoryService.Create(Path.Combine(_currentPath!, sourcePath));
                     break;
 
-                case nameof(Commands.cp):
+                case nameof(Commands.Cp):
                     if(Path.HasExtension(sourcePath)) _fileService.Copy(Path.Combine(_currentPath!, sourcePath), Path.Combine(destPath, sourcePath));
                     else _directoryService.Copy(Path.Combine(_currentPath!, sourcePath), Path.Combine(destPath, sourcePath));
                     break;
 
-                case nameof(Commands.dir):
+                case nameof(Commands.Dir):
                     var directories = _directoryService.GetDirectories(_currentPath!);
                     _outputService.PrintCollectionObjects(directories);
                     return;
 
-                case nameof(Commands.disk):
+                case nameof(Commands.Disk):
                     var disks = _diskService.GetDisks();
                     _outputService.PrintCollectionObjects(disks);
                     return;
 
-                case nameof(Commands.diskpart): _currentPath = sourcePath;
+                case nameof(Commands.Diskpart): _currentPath = sourcePath;
                     break;
 
-                case nameof(Commands.diskreport):
+                case nameof(Commands.Diskreport):
                     var reportService = ISingleton<ReportService>.Instance;
                     reportService?.GenerateReport(new("DiskReportTemplate.docx"), "DiskReport.docx");
                     break;
 
-                case nameof(Commands.cd): _currentPath = Path.Combine(_currentPath!, sourcePath);
+                case nameof(Commands.Cd): _currentPath = Path.Combine(_currentPath!, sourcePath);
                     break;
 
-                case nameof(Commands.clr): Console.Clear();
+                case nameof(Commands.Cls): Console.Clear();
                     return;
 
-                case nameof(Commands.exit):
+                case nameof(Commands.Exit):
                     if (File.Exists(_fileName)) _repository.Update(_currentPath!); 
                     else _repository.Create(_currentPath!);
                     return;
 
-                case nameof(Commands.move):
+                case nameof(Commands.Move):
                     if (Path.HasExtension(sourcePath)) _fileService.Move(Path.Combine(_currentPath!, sourcePath), Path.Combine(destPath, sourcePath));
                     else _directoryService.Move(Path.Combine(_currentPath!, sourcePath), Path.Combine(destPath, sourcePath));
                     break;
 
-                case nameof(Commands.rename):
+                case nameof(Commands.Rename):
                     if(Path.HasExtension(sourcePath)) _fileService.Move(Path.Combine(_currentPath!, sourcePath), Path.Combine(_currentPath!, destPath));
                     else _directoryService.Move(Path.Combine(_currentPath!, sourcePath), Path.Combine(_currentPath!, destPath));
                     break;
 
-                case nameof(Commands.rm):
+                case nameof(Commands.Rm):
                     if (Path.HasExtension(sourcePath)) _fileService.Delete(Path.Combine(_currentPath!, sourcePath));
                     else _directoryService.Delete(Path.Combine(_currentPath!, sourcePath));
                     break;
 
-                case nameof(Commands.size):
+                case nameof(Commands.Size):
                     if (Path.HasExtension(sourcePath))
                     {
                         _fileService.GetSize(Path.Combine(_currentPath!, sourcePath), out long sizeFile);
@@ -126,8 +122,13 @@ namespace FileManager
                     }
                     break;
 
+                case nameof(Commands.Help):
+                    break;
+
                 default:
-                    Console.WriteLine("Command not found!");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Out.WriteLine($"{DateTime.Now:hh.mm.ss dd.MM.yyyy} Команда не найдена!");
+                    Console.ResetColor();
                     return;
             }
         }

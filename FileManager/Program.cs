@@ -1,8 +1,10 @@
-﻿using FileManager;
+﻿#region Usings
+using FileManager;
 using FileManager.Core.Repository;
 using FileManager.Core.Services;
 using FileManager.Core.Services.Interfaces;
 using FileManager.UserInterfaces.ConsoleInterface;
+#endregion
 
 var directoryService = ISingleton<DirectoryService>.Instance;
 var diskService = ISingleton<DiskService>.Instance;
@@ -13,5 +15,5 @@ var repository = ISingleton<Repository>.Instance;
 
 Console.Title = "FileManager";
 
-var manager = new Manager(diskService!, directoryService!, fileService!, inputService!, outputService!, repository!);
+var manager = new Manager(diskService, directoryService, fileService, inputService, outputService, repository);
 manager.Run();

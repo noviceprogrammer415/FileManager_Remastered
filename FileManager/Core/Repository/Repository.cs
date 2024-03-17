@@ -10,10 +10,13 @@
             streamWriter.WriteLine(savedPath);
         }
 
-        public void Read(out string readPath)
+        public void Read(string currentPath, out string readPath)
         {
             using var streamReader = _fileInfo.OpenText();
-            readPath = streamReader.ReadLine()!;
+            var result = streamReader.ReadLine();
+            readPath = !string.IsNullOrEmpty(result) 
+                       ? result
+                       : currentPath;
         }
 
         public void Update(string updatedPath) => Create(updatedPath);

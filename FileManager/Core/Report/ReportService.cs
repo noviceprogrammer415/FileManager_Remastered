@@ -13,11 +13,11 @@ namespace FileManager.Core.Report
             
             templateFile.CopyTo(report_file.FullName);
 
-            var rows = new List<TableRowContent>();
+            IEnumerable<TableRowContent> rows = Enumerable.Empty<TableRowContent>();
 
             foreach (var drive in DriveInfo.GetDrives())
             {
-                rows.Add(new(new List<FieldContent>
+                rows = rows.Append(new(new List<FieldContent>
                 {
                     new("Name", drive.Name),
                     new("DriveType", drive.DriveType.ToString()),
@@ -28,7 +28,7 @@ namespace FileManager.Core.Report
             }
             
             using var document = new TemplateProcessor(report_file.FullName).SetRemoveContentControls(isNeedToRemove: true);
-            document.FillContent(content: new(TableContent.Create("Drivers", rows)));
+            document.FillContent(content: new(TableContent.Create("Drivers", rows.ToArray())));
             document.SaveChanges();
             
             Process.Start(new ProcessStartInfo(report_file.FullName) { UseShellExecute = true });
